@@ -33,7 +33,7 @@ local sub = string.sub
 
 local plugin
 
-local LUA_VERSION = match(_VERSION, " (5%.[123])$") or "5.1"
+local LUA_VERSION = match(_VERSION, " (5%.[1234])$") or "5.1"
 
 -- Is --opt-binequiv available for this Lua version?
 local BIN_EQUIV_AVAIL = LUA_VERSION == "5.1" and not package.loaded.jit

@@ -31,6 +31,7 @@ local is_realtoken = {          -- significant (grammar) tokens
   TK_NUMBER = true,
   TK_STRING = true,
   TK_LSTRING = true,
+  TK_VARATTR = true,
   TK_OP = true,
   TK_EOS = true,
 }
@@ -228,9 +229,9 @@ local function do_number(i)
 
   elseif not match(z, "[eE]") then      -- float
     local p, q = match(z, "^(%d*)%.(%d*)$")  -- split
-    if p == "" then p = 0 end  -- int part zero
+    if p == "" then p = "0" end  -- int part zero
     if q == "" then q = "0" end  -- fraction part zero
-    if tonumber(q) == 0 and p == 0 then
+    if tonumber(q) == 0 and p == "0" then
       y = ".0"  -- degenerate .000 to .0
     else
       -- now, q > 0 holds and p is a number
@@ -677,7 +678,8 @@ function M.optimize(option, toklist, semlist, toklnlist)
 
     elseif tok == "TK_KEYWORD" or       -- keywords, identifiers,
            tok == "TK_NAME" or          -- operators
-           tok == "TK_OP" then
+           tok == "TK_OP" or 
+           tok == "TK_VARATTR" then
       -- TK_KEYWORD and TK_OP can't be optimized without a big
       -- optimization framework; it would be more of an optimizing
       -- compiler, not a source code compressor

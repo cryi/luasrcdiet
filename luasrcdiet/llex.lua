@@ -278,12 +278,25 @@ function M.lex(source, source_name)
         break -- (continue)
       end
 
+      local p, q = find(z, "^(<%s-const%s->)", i)
+      if p then
+        I = q + 1
+        addtoken("TK_VARATTR", "<const> ")
+        break
+      end
+
+      local p, q = find(z, "^(<%s-close%s->)", i)
+      if p then
+        I = q + 1
+        addtoken("TK_VARATTR", "<close> ")
+        break
+      end
+
       local r = match(z, "^%p", i)
       if r then
         buff = i
         local p = find("-[\"\'.=<>~", r, 1, true)  --luacheck: ignore 421
         if p then
-
           -- two-level if block for punctuation/symbols
           if p <= 2 then
             if p == 1 then                      -- minus
