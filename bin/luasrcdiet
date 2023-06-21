@@ -185,7 +185,7 @@ end
 local TTYPES = {
   "TK_KEYWORD", "TK_NAME", "TK_NUMBER",         -- grammar
   "TK_STRING", "TK_LSTRING", "TK_OP",
-  "TK_EOS",
+  "TK_EOS", "TK_VARATTR",
   "TK_COMMENT", "TK_LCOMMENT",                  -- non-grammar
   "TK_EOL", "TK_SPACE",
 }
